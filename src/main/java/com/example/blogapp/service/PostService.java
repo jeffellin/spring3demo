@@ -27,13 +27,14 @@ public class PostService {
 
     public List<Post> loadPosts() {
 
-        List<Post> posts = Observation.createNotStarted("blogapplication.loadposts", registry)
-                .lowCardinalityKeyValue("some-value", "200")
-                .observe(() -> {
-                    ResponseEntity<List<Post>> exchange = restTemplate.exchange("https://jsonplaceholder.typicode.com/posts", HttpMethod.GET, null, new ParameterizedTypeReference<List<Post>>() {
-                    });
-                    return exchange.getBody();
-                });
+        WebClient client = WebClient.builder().baseUrl("https://jsonplaceholder.typicode.com").build();
+        HttpServiceProxyFactory factory = HttpServiceProxyFactory.builder(WebClientAdapter.forClient(client)).build();
+        JsonPostsService jps = factory.createClient(JsonPostsService.class);
+
+        List<Post> posts = Observation
+                .createNotStarted("json-place-holder.load-posts", registry)
+                .lowCardinalityKeyValue("some-value", "100")
+                .observe(jps::loadPosts);
 
 
         return posts;

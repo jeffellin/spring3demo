@@ -1,0 +1,6 @@
+[{
+  "interfaces": [
+    "interface com.example.blogapp.service.JsonPostsService"
+  ]
+}
+  ]
