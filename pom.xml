@@ -69,7 +69,7 @@
 				<artifactId>native-maven-plugin</artifactId>
 				<configuration>
 					<buildArgs>
-						<arg>-H:DynamicProxyConfigurationFiles=foo.json</arg>
+					<!--	<arg>-H:DynamicProxyConfigurationFiles=foo.json</arg>-->
 					</buildArgs>
 				</configuration>
 			</plugin>
